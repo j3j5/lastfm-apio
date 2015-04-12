@@ -3,8 +3,9 @@
 	"description": "A simple PHP wrapper for the Last.fm API that allow parallel requests",
 	"require": {
 		"php": ">=5.4.0",
-		"curl/curl": "2.*@dev",
-		"marcushat/rolling-curl-x": "dev-master"
+		"curl/curl": "1.2.*",
+		"marcushat/rolling-curl-x": "dev-master",
+		"monolog/monolog": "~1.13@dev"
 	},
 	"license": "LGPLv3",
 	"authors": [
