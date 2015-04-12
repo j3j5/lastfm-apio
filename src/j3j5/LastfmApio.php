@@ -27,7 +27,7 @@ class LastfmApio {
 
 	private $curl;
 	private $rolling_curl;
-	private $max_concurrent_requests = 1;
+	private $max_concurrent_requests = 20;
 
 	private $responses = array();
 
