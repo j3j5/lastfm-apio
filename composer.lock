@@ -4,8 +4,54 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "23502a00b22ac4c32ba04a81ab804860",
+    "hash": "4d7f230f8d3fea7e4d9934315ee34039",
     "packages": [
+        {
+            "name": "curl/curl",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/curl.git",
+                "reference": "854a2801b7460a66d8d696d658f1c39573e4ccc4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/curl/zipball/854a2801b7460a66d8d696d658f1c39573e4ccc4",
+                "reference": "854a2801b7460a66d8d696d658f1c39573e4ccc4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "squizlabs/php_codesniffer": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Curl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hassan Amouhzi",
+                    "email": "hassan@anezi.net",
+                    "homepage": "http://hassan.amouhzi.com"
+                }
+            ],
+            "description": "cURL class for PHP",
+            "homepage": "https://github.com/php-mod/curl",
+            "keywords": [
+                "curl"
+            ],
+            "time": "2015-03-08 15:47:37"
+        },
         {
             "name": "marcushat/rolling-curl-x",
             "version": "dev-master",
@@ -50,6 +96,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "curl/curl": 20,
         "marcushat/rolling-curl-x": 20
     },
     "prefer-stable": false,
