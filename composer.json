@@ -1,0 +1,22 @@
+{
+	"name": "j3j5/lastfm-apio",
+	"description": "A simple PHP wrapper for the Last.fm API that allow parallel requests",
+	"require": {
+		"php": ">=5.4.0",
+		"marcushat/rolling-curl-x": "dev-master"
+	},
+	"license": "LGPLv3",
+	"authors": [
+		{
+			"name": "Julio Foulquie",
+			"email": "jfoulquie@gmail.com",
+			"homepage": "http://github.com/j3j5"
+		}
+	],
+	"minimum-stability": "dev",
+	"autoload": {
+		"psr-0": {
+			"j3j5": "src/"
+		}
+	}
+}
