@@ -3,12 +3,12 @@
 /**
  * LastfmApio
  *
- * A wrapper to make easier to use Twitter's API with tmhOAuth library.
+ * A wrapper to make easier to use Last.fm API service.
  *
  * @author Julio Foulquié
  * @version 0.1.0
  *
- * 06 Mar 2015
+ * 10 Apr 2015
  */
 
 namespace j3j5;
@@ -21,6 +21,7 @@ class LastfmApio {
 
 	private static $api_url = 'http://ws.audioscrobbler.com/2.0/';
 	private static $auth_url = 'http://www.last.fm/api/auth/';
+	private static $total_requests = 0;
 	private static $total_errors = array();
 	private static $responses = array();
 	private static $log;
@@ -48,10 +49,9 @@ class LastfmApio {
 	}
 
 	public function __destruct() {
-		self::create_log_instance();
 		self::$log->addWarning("Error summary:");
 		foreach(self::$total_errors AS $error_code => $number_of_errors) {
-			self::$log->addWarning("$number_of_errors requests failed with error $error_code.");
+			self::$log->addWarning("$number_of_errors requests failed (out of " . self::$total_requests . ") with error $error_code.");
 		}
 	}
 
@@ -140,6 +140,7 @@ class LastfmApio {
 		$rolling_curl = $this->_get_rolling_curl();
 		$rolling_curl->setHeaders(array('Content-type: application/x-www-form-urlencoded'));
 		$rolling_curl->addRequest(self::$api_url, $parameters, __NAMESPACE__ .'\LastfmApio::process_response', $user_parameters);
+		self::$total_requests++;
 		self::$log->addDebug("Request added: " . self::$api_url . '?' . http_build_query($parameters));
 		if(!$do_multi_request) {
 			self::$log->addDebug("Single request, running...");
