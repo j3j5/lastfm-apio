@@ -224,6 +224,9 @@ class LastfmApio {
 			),
 			$parameters
 		);
+		if(!isset(self::$total_errors[$json->error])) {
+			self::$total_errors[$json->error] = 0;
+		}
 		switch($json->error) {
 		// 8 : Operation failed - Something else went wrong
 			case 8:
