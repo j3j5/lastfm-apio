@@ -1,6 +1,8 @@
 {
 	"name": "j3j5/lastfm-apio",
 	"description": "A simple PHP wrapper for the Last.fm API that allows you to launch parallel requests.",
+	"keywords": ["php", "last.fm", "API", "parallel"],
+	"type": "library",
 	"require": {
 		"php": ">=5.4.0",
 		"marcushat/rolling-curl-x": "dev-master",
