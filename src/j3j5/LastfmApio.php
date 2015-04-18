@@ -251,13 +251,13 @@ class LastfmApio {
 			case 16:
 				// Esto peeeetaaaa (error that the API throws on some legit calls, just ignore it)
 				self::$total_errors[$json->error]++;
-				self::$log->addWarning("API call failed with error({$json->error}): http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
+				self::$log->addWarning("API call failed with error({$json->error}): " . self::$api_url . http_build_query( $parameters ) );
 				self::$log->addWarning($json->message);
 				return;
 			// 29 : Rate limit exceeded - Your IP has made too many requests in a short period
 			case 29:
 				self::$total_errors[$json->error]++;
-				self::$log->addError("Rate limit hit on: http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
+				self::$log->addError("Rate limit hit on: " . self::$api_url . http_build_query( $parameters ) );
 				self::$log->addError($json->message);
 				self::$log->addError("Exiting.");
 				exit;
@@ -278,6 +278,11 @@ class LastfmApio {
 				self::$log->addWarning("Wrong method:");
 				self::$log->addWarning($json->message);
 				return;
+			// 26 : Suspended API key - Access for your account has been suspended, please contact Last.fm
+			case 26:
+				self::$total_errors[$json->error]++;
+				self::$log->addWarning("Suspended API key, what did you do?");
+				return;
 			// 2 : Invalid service - This service does not exist
 			case 2:
 			// 4 : Authentication Failed - You do not have permissions to access the service
@@ -292,18 +297,15 @@ class LastfmApio {
 			case 11:
 			// 13 : Invalid method signature supplied
 			case 13:
-			// 26 : Suspended API key - Access for your account has been suspended, please contact Last.fm
-			case 26:
 			default:
 				self::$total_errors[$json->error]++;
 				self::$log->addError('UNHANDLED ERROR: ' );
-				self::$log->addError("API call failed: http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
+				self::$log->addError("API call failed: " . self::$api_url . http_build_query( $parameters ));
 				self::$log->addError(print_r($json, TRUE));
-				exit;
-				break;
+				return;
 		}
 		self::$log->addError('UNKNOWN ERROR: ' . $json->message );
-		self::$log->addError("API call failed: http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
+		self::$log->addError("API call failed: " . self::$api_url . http_build_query( $parameters ));
 		exit;
 	}
 

@@ -26,8 +26,8 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 	public function testCanSetSettings() {
 		// Arrange
 		$api = new LastfmApio();
-
 		$lastfm_settings = array('api_key' => 'fa6c4dc3a0ffc7fbec685dc3491eb080', 'api_secret' => ''); // api key from last.fm example docs
+
 		// Act
 		$api->set_api_settings($lastfm_settings);
 		$api_settings = $api->get_api_settings();
@@ -107,11 +107,44 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testCanSetSettings
 	 */
+	public function testSingleRequestWrongAPIkey(LastfmApio $api) {
+		$lastfm_settings = array('api_key' => 'API_KEY', 'api_secret' => '');
+		// Act
+		$api->set_api_settings($lastfm_settings);
+
+		$username = 'rj';
+		$response = $api->chart_gettopartists(array('user' => $username));
+		$this->assertEquals(FALSE, $response);
+
+		$lastfm_settings = array('api_key' => 'fa6c4dc3a0ffc7fbec685dc3491eb080', 'api_secret' => ''); // api key from last.fm example docs
+		$api->set_api_settings($lastfm_settings);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequestSuspendedAPIkey(LastfmApio $api) {
+		$lastfm_settings = array('api_key' => 'f1515f1882ab4e61d50c7c19d4f98a04', 'api_secret' => '');
+		// Act
+		$api->set_api_settings($lastfm_settings);
+
+		$username = 'rj';
+		$response = $api->chart_gettopartists(array('user' => $username));
+		$this->assertEquals(FALSE, $response);
+
+		$lastfm_settings = array('api_key' => 'fa6c4dc3a0ffc7fbec685dc3491eb080', 'api_secret' => ''); // api key from last.fm example docs
+		$api->set_api_settings($lastfm_settings);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
 	public function testSingleRequestWrongJson(LastfmApio $api) {
 		$username = 'rj';
 		$api->set_api_settings(array('format' => NULL));
 		$response = $api->user_getweeklychartlist(array('user' => $username));
 		$this->assertEquals(FALSE, $response);
+		$api->set_api_settings(array('format' => 'json'));
 	}
 
 	/**
@@ -120,19 +153,6 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 	public function testSingleRequestWrongResponseCode(LastfmApio $api) {
 		$username = 'rj';
 		$response = $api->user_getweeklychartlist(array('user' => $username, 'format' => 'xml'));
-		$this->assertEquals(FALSE, $response);
-	}
-
-	/**
-	 * @depends testCanSetSettings
-	 */
-	public function testSingleRequestWrongAPIkey(LastfmApio $api) {
-		$lastfm_settings = array('api_key' => 'API_KEY', 'api_secret' => '');
-		// Act
-		$api->set_api_settings($lastfm_settings);
-
-		$username = 'rj';
-		$response = $api->user_getweeklychartlist(array('user' => $username));
 		$this->assertEquals(FALSE, $response);
 	}
 
