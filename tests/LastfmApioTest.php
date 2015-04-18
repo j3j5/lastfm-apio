@@ -93,6 +93,34 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(FALSE, $response);
 	}
 
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequestWrongMethod(LastfmApio $api) {
+		$response = $api->user_getweeklychartlista();
+
+		$this->assertEquals(FALSE, $response);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequestWrongJson(LastfmApio $api) {
+		$username = 'rj';
+		$api->set_api_settings(array('format' => NULL));
+		$response = $api->user_getweeklychartlist(array('user' => $username));
+		$this->assertEquals(FALSE, $response);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequestWrongResponseCode(LastfmApio $api) {
+		$username = 'rj';
+		$response = $api->user_getweeklychartlist(array('user' => $username, 'format' => 'xml'));
+		$this->assertEquals(FALSE, $response);
+	}
+
 	public function testLog() {
 		LastfmApio::create_log_instance();
 		$this->assertEquals(TRUE, is_object(LastfmApio::$log));

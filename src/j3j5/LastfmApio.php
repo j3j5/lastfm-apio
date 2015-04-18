@@ -116,11 +116,14 @@ class LastfmApio {
 		$parameters = array_merge(
 				array(
 					'method' => $method,
-					'format' => 'json',
 					'api_key' => self::$api_settings['api_key']
 				),
 				$parameters
 		);
+
+		if(!empty(self::$api_settings['format']) && !isset($parameters['format'])) {
+			$parameters['format'] = self::$api_settings['format'];
+		}
 
 		// Do we need to authenticate the request ?
 		if( $do_request_auth ) {
@@ -196,16 +199,16 @@ class LastfmApio {
 		self::create_log_instance();
 		self::$log->addDebug("Processing response for: " . $url . " with parameters " . print_r($parameters, TRUE) );
 
+		// In case for whatever reason the API hosts returns a 500 or something like it
 		if ($request_info['http_code'] !== 200) {
 			self::$log->addError("Connection error " . $request_info['http_code']);
 			self::$responses[implode('.', $parameters)] = FALSE;
 			return;
 		}
-
 		$json = json_decode( $response );
 
 		// The JSON couldn't be decoded …
-		if( $json === false ) {
+		if( is_null($json) ) {
 			self::$log->addError("JSON response seems incorrect:");
 			self::$log->addError($response);
 			self::$responses[implode('.', $parameters)] = FALSE;
@@ -254,17 +257,21 @@ class LastfmApio {
 			case 10:
 				self::$total_errors[$json->error]++;
 				self::$log->addError("Invalid API key, go to http://www.last.fm/api/accounts and get a valid one.");
-				exit;
+				return;
 			// 6 : Invalid parameters - Your request is missing a required parameter
 			case 6:
 				self::$total_errors[$json->error]++;
 				self::$log->addWarning("Wrong parameters:");
-				self::$log->addWarning(print_r($json->message));
+				self::$log->addWarning($json->message);
+				return;
+			// 3 : Invalid Method - No method with that name in this package
+			case 3:
+				self::$total_errors[$json->error]++;
+				self::$log->addWarning("Wrong method:");
+				self::$log->addWarning($json->message);
 				return;
 			// 2 : Invalid service - This service does not exist
 			case 2:
-			// 3 : Invalid Method - No method with that name in this package
-			case 3:
 			// 4 : Authentication Failed - You do not have permissions to access the service
 			case 4:
 			// 5 : Invalid format - This service doesn't exist in that format

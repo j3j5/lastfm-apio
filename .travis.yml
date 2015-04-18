@@ -11,4 +11,4 @@ cache:
 
 script:
  - phpunit --bootstrap vendor/autoload.php tests/LastfmApioTest
- - php coverage-checker.php tests/reports/clover.xml 50
+ - php coverage-checker.php tests/reports/clover.xml 70
