@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/j3j5/lastfm-apio.svg?branch=master)](https://travis-ci.org/j3j5/lastfm-apio)
+
+
 LastfmApio
 ============
 
