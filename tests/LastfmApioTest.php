@@ -32,6 +32,7 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 		$api->set_api_settings($lastfm_settings);
 		$api_settings = $api->get_api_settings();
 
+		// Disable Monolog while testing
 		LastfmApio::disable_logging();
 
 		// Assert
@@ -100,7 +101,6 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testSingleRequestWrongMethod(LastfmApio $api) {
 		$response = $api->user_getweeklychartlista();
-
 		$this->assertEquals(FALSE, $response);
 	}
 
@@ -120,6 +120,19 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 	public function testSingleRequestWrongResponseCode(LastfmApio $api) {
 		$username = 'rj';
 		$response = $api->user_getweeklychartlist(array('user' => $username, 'format' => 'xml'));
+		$this->assertEquals(FALSE, $response);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequestWrongAPIkey(LastfmApio $api) {
+		$lastfm_settings = array('api_key' => 'API_KEY', 'api_secret' => '');
+		// Act
+		$api->set_api_settings($lastfm_settings);
+
+		$username = 'rj';
+		$response = $api->user_getweeklychartlist(array('user' => $username));
 		$this->assertEquals(FALSE, $response);
 	}
 
