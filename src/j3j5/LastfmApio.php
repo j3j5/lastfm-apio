@@ -240,8 +240,8 @@ class LastfmApio {
 			case 16:
 				// Esto peeeetaaaa (error that the API throws on some legit calls, just ignore it)
 				self::$total_errors[$json->error]++;
-				self::$log->addError("API call failed with error({$json->error}): http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
-				self::$log->addError($json->message);
+				self::$log->addWarning("API call failed with error({$json->error}): http://ws.audioscrobbler.com/2.0/?" . http_build_query( $parameters ));
+				self::$log->addWarning($json->message);
 				return;
 			// 29 : Rate limit exceeded - Your IP has made too many requests in a short period
 			case 29:
@@ -255,6 +255,12 @@ class LastfmApio {
 				self::$total_errors[$json->error]++;
 				self::$log->addError("Invalid API key, go to http://www.last.fm/api/accounts and get a valid one.");
 				exit;
+			// 6 : Invalid parameters - Your request is missing a required parameter
+			case 6:
+				self::$total_errors[$json->error]++;
+				self::$log->addWarning("Wrong parameters:");
+				self::$log->addWarning(print_r($json->message));
+				return;
 			// 2 : Invalid service - This service does not exist
 			case 2:
 			// 3 : Invalid Method - No method with that name in this package
@@ -263,8 +269,6 @@ class LastfmApio {
 			case 4:
 			// 5 : Invalid format - This service doesn't exist in that format
 			case 5:
-			// 6 : Invalid parameters - Your request is missing a required parameter
-			case 6:
 			// 7 : Invalid resource specified
 			case 7:
 			// 9 : Invalid session key - Please re-authenticate

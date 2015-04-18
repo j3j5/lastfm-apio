@@ -9,4 +9,6 @@ cache:
   directories:
     - vendor
 
-script: phpunit --bootstrap vendor/autoload.php tests/LastfmApioTest
+script:
+ - phpunit --bootstrap vendor/autoload.php tests/LastfmApioTest
+ - php coverage-checker.php clover.xml 50
