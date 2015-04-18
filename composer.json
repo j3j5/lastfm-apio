@@ -5,9 +5,11 @@
 	"type": "library",
 	"require": {
 		"php": ">=5.4.0",
-		"marcushat/rolling-curl-x": "dev-master",
 		"monolog/monolog": "~1.13",
 		"phpunit/phpunit": "~4.6"
+	},
+	"require-dev":{
+		"marcushat/rolling-curl-x": "dev-master"
 	},
 	"license": "LGPLv3",
 	"authors": [
