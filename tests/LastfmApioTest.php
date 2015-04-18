@@ -32,6 +32,8 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 		$api->set_api_settings($lastfm_settings);
 		$api_settings = $api->get_api_settings();
 
+		LastfmApio::disable_logging();
+
 		// Assert
 		$this->assertEquals($lastfm_settings['api_key'], $api_settings['api_key']);
 

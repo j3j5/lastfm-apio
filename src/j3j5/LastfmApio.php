@@ -189,6 +189,14 @@ class LastfmApio {
 		}
 	}
 
+	public static function disable_logging(){
+		if(!empty(self::$log)) {
+			self::$log = NULL;
+			self::$log = new Logger('lastfm-apio');
+			self::$log->pushHandler(new StreamHandler("/dev/null", Logger::ERROR));
+		}
+	}
+
 	/**
 	 * Process the response from an API call
 	 *
