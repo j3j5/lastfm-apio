@@ -3,8 +3,7 @@ use j3j5\LastfmApio;
 
 class LastfmApioTest extends PHPUnit_Framework_TestCase {
 
-	public function testCanGetSettings()
-	{
+	public function testCanGetSettings() {
 		// Arrange
 		$api = new LastfmApio();
 
@@ -14,8 +13,17 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(TRUE, is_array($api_settings));
 	}
 
-	public function testCanReconfigure()
-	{
+	public function testCanGetMaxConcurrent() {
+		// Arrange
+		$api = new LastfmApio();
+
+		$max_reqs = $api->get_max_concurrent_reqs();
+
+		// Assert
+		$this->assertEquals(TRUE, is_numeric($max_reqs));
+	}
+
+	public function testCanSetSettings() {
 		// Arrange
 		$api = new LastfmApio();
 
@@ -26,5 +34,56 @@ class LastfmApioTest extends PHPUnit_Framework_TestCase {
 
 		// Assert
 		$this->assertEquals($lastfm_settings['api_key'], $api_settings['api_key']);
+
+		return $api;
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSetMaxConcurrent(LastfmApio $api) {
+		$default_max_reqs = $api->get_max_concurrent_reqs();
+		$new_max_req = 200;
+
+		$api->set_max_concurrent_reqs($new_max_req);
+		$max_reqs = $api->get_max_concurrent_reqs();
+
+		$this->assertNotEquals($default_max_reqs, $new_max_req);
+		$this->assertEquals($new_max_req, $max_reqs);
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testSingleRequest(LastfmApio $api) {
+		$username = 'rj';
+
+		$response = $api->user_getweeklychartlist(array('user' => $username));
+
+		$this->assertEquals(TRUE, is_object($response));
+	}
+
+	/**
+	 * @depends testCanSetSettings
+	 */
+	public function testMultiRequest(LastfmApio $api) {
+		$username = 'rj';
+
+		$api->user_getweeklyartistchart(array('user' => $username), FALSE, TRUE);
+		$api->user_getweeklyartistchart(array('user' => $username, 'from' => 1210507200, 'to' => 1211112000), FALSE, TRUE);
+		$api->user_getweeklyartistchart(array('user' => $username, 'from' => 1217764800, 'to' => 1218369600), FALSE, TRUE);
+		$api->user_getweeklyartistchart(array('user' => $username, 'from' => 1232280000, 'to' => 1232884800), FALSE, TRUE);
+
+		// The response to all concurrent requests is return as an array using as key a string of the parameters joined by '.'
+		$responses = $api->run_multi_requests();
+
+		foreach($responses AS $response) {
+			$this->assertEquals(TRUE, is_object($response));
+		}
+	}
+
+	public function testLog() {
+		LastfmApio::create_log_instance();
+		$this->assertEquals(TRUE, is_object(LastfmApio::$log));
 	}
 }
