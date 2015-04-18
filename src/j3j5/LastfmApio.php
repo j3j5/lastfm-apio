@@ -170,7 +170,7 @@ class LastfmApio {
 
 	public static function create_log_instance() {
 		if(empty(self::$log)) {
-			///WARNING: Setting this to a level lower level than warning can slow things down.
+			///WARNING: Setting this to a level lower level than WARNING can slow things down.
 			self::$log = new Logger('lastfm-apio');
 			if(PHP_SAPI == 'cli') {
 				self::$log->pushHandler(new StreamHandler("php://stdout", Logger::WARNING));
