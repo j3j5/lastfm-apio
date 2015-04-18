@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- works fine with PHPUnit-3.6.10 -->
+<phpunit
+	bootstrap="./vendor/autoload.php"
+	colors="true"
+	verbose="true"
+	syntaxCheck="true"
+	backupGlobals="true"
+	>
+	<testsuite name="LastfmApio tests">
+		<directory>./tests/LastfmApioTest</directory>
+	</testsuite>
+</phpunit>
