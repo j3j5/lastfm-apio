@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fafdcfd854600fafa2053c2d670428e0",
+    "hash": "67e7c05254abbfd318e9725cab6fa9d9",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -59,6 +59,45 @@
                 "instantiate"
             ],
             "time": "2014-10-13 12:58:55"
+        },
+        {
+            "name": "marcushat/rolling-curl-x",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/j3j5/RollingCurlX.git",
+                "reference": "ab0aa914e74ceaa9f5ec9e2df2000ca23eb58701"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/j3j5/RollingCurlX/zipball/ab0aa914e74ceaa9f5ec9e2df2000ca23eb58701",
+                "reference": "ab0aa914e74ceaa9f5ec9e2df2000ca23eb58701",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "marcushat": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julio Foulquie",
+                    "email": "jfoulquie@gmail.com"
+                },
+                {
+                    "name": "Marcus Hat"
+                }
+            ],
+            "description": "Easy to use cURL Multi wrapper for PHP.",
+            "time": "2015-04-18 19:00:42"
         },
         {
             "name": "monolog/monolog",
@@ -1075,47 +1114,7 @@
             "time": "2015-03-30 15:54:10"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "marcushat/rolling-curl-x",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/j3j5/RollingCurlX.git",
-                "reference": "9ab3d2f02c21def44b8537a04daecbd5885793ea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/j3j5/RollingCurlX/zipball/9ab3d2f02c21def44b8537a04daecbd5885793ea",
-                "reference": "9ab3d2f02c21def44b8537a04daecbd5885793ea",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "marcushat": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Julio Foulquie",
-                    "email": "jfoulquie@gmail.com"
-                },
-                {
-                    "name": "Marcus Hat"
-                }
-            ],
-            "description": "Easy to use cURL Multi wrapper for PHP.",
-            "time": "2015-04-14 08:32:34"
-        }
-    ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
