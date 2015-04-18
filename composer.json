@@ -6,8 +6,8 @@
 	"require": {
 		"php": ">=5.4.0",
 		"marcushat/rolling-curl-x": "dev-master",
-		"monolog/monolog": "~1.13@dev",
-		"phpunit/phpunit": "4.6.*"
+		"monolog/monolog": "~1.13",
+		"phpunit/phpunit": "~4.6"
 	},
 	"license": "LGPLv3",
 	"authors": [
@@ -17,7 +17,6 @@
 			"homepage": "http://github.com/j3j5"
 		}
 	],
-	"minimum-stability": "dev",
 	"autoload": {
 		"psr-0": {
 			"j3j5": "src/"
