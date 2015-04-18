@@ -24,7 +24,7 @@ class LastfmApio {
 	private static $total_requests = 0;
 	private static $total_errors = array();
 	private static $responses = array();
-	private static $log;
+	public static $log;
 
 	private static $api_settings = array();
 	private $curl_settings = array();
@@ -49,9 +49,11 @@ class LastfmApio {
 	}
 
 	public function __destruct() {
-		self::$log->addWarning("Error summary:");
-		foreach(self::$total_errors AS $error_code => $number_of_errors) {
-			self::$log->addWarning("$number_of_errors requests failed (out of " . self::$total_requests . ") with error $error_code.");
+		if(count(self::$total_errors) > 0) {
+			self::$log->addWarning("Error summary:");
+			foreach(self::$total_errors AS $error_code => $number_of_errors) {
+				self::$log->addWarning("$number_of_errors requests failed (out of " . self::$total_requests . ") with error $error_code.");
+			}
 		}
 	}
 
@@ -68,6 +70,10 @@ class LastfmApio {
 		$this->max_concurrent_requests = intval($max_concurrent_requests);
 		$this->rolling_curl = NULL;
 		$this->_get_rolling_curl();
+	}
+
+	public function get_max_concurrent_reqs() {
+		return $this->max_concurrent_requests;
 	}
 
 	/**
