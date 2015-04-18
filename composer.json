@@ -6,10 +6,8 @@
 	"require": {
 		"php": ">=5.4.0",
 		"monolog/monolog": "~1.13",
-		"phpunit/phpunit": "~4.6"
-	},
-	"require-dev":{
-		"marcushat/rolling-curl-x": "dev-master"
+		"phpunit/phpunit": "~4.6",
+		"marcushat/rolling-curl-x": "*@dev"
 	},
 	"license": "LGPLv3",
 	"authors": [

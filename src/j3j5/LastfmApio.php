@@ -13,7 +13,7 @@
 
 namespace j3j5;
 
-use marcushat\RollingCurlX;
+use \marcushat\RollingCurlX;
 use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
 
