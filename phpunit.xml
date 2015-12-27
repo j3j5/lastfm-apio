@@ -1,14 +1,18 @@
 <?xml version="1.0"?>
-<!-- works fine with PHPUnit-3.6.10 -->
-<phpunit
-	bootstrap="./vendor/autoload.php"
-	colors="true"
-	verbose="true"
-	syntaxCheck="true"
-	backupGlobals="true"
-	>
+<!-- works fine with PHPUnit-4.8.21 -->
+<phpunit backupGlobals="false"
+		backupStaticAttributes="false"
+		bootstrap="vendor/autoload.php"
+		colors="true"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		checkForUnintentionallyCoveredCode="true"
+		processIsolation="false"
+		stopOnFailure="true"
+		syntaxCheck="true" >
 	<testsuite name="LastfmApio tests">
-		<directory>./tests/LastfmApioTest</directory>
+		<directory suffix="Test.php">./tests/</directory>
 	</testsuite>
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
